@@ -63,8 +63,12 @@ const getByAgendamento = (callback) => {
 //////////////////upload////////////////////////
 
 const upload = (agendamento_id, pdf, callback) => {
-  const sql = `INSERT INTO bibi.diagnostico(agendamento_id, pdf,resposta) VALUES (?, ?,?)`;
-  db.query(sql, [agendamento_id, pdf, 'aguardando'], callback);
+  // Loop através de cada arquivo PDF na matriz pdf
+  pdf.forEach(file => {
+    const sql = `INSERT INTO bibi.diagnostico(agendamento_id, pdf, resposta) VALUES (?, ?, ?)`;
+    // Insere os dados binários do PDF na consulta SQL
+    db.query(sql, [agendamento_id, file.data, 'aguardando'], callback);
+  });
 };
 
 module.exports = {

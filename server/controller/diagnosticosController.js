@@ -1,4 +1,4 @@
-const admModel = require("../model/admModel");
+const admModel = require('../model/admModel');
 
 module.exports = {
   setUpload: async (req, res) => {
@@ -8,12 +8,12 @@ module.exports = {
 
       // Verifica se o ID do agendamento foi fornecido
       if (!agendamento_id) {
-        return res.status(400).json({ error: "Por favor, forneça o ID do agendamento." });
+        return res.status(400).json({ error: 'Por favor, forneça o ID do agendamento.' });
       }
 
       // Verifica se foram enviados arquivos
       if (!files || files.length === 0) {
-        return res.status(400).json({ error: "Nenhum arquivo enviado." });
+        return res.status(400).json({ error: 'Nenhum arquivo enviado.' });
       }
 
       // Mapeia os arquivos para extrair os dados necessários
@@ -25,13 +25,16 @@ module.exports = {
       }));
 
       // Chama a função upload do modelo e trata os erros, se houverem
-      await admModel.upload(agendamento_id, pdf);
-      
-      // Se não houver erros, retorna uma resposta de sucesso
-      return res.status(200).json({ message: "Upload do PDF realizado com sucesso." });
+      admModel.upload(agendamento_id, pdf, (err, result) => {
+        if (err) {
+          console.error('Erro ao fazer upload do PDF:', err);
+          return res.status(500).json({ error: 'Erro ao fazer upload do PDF.' });
+        }
+        return res.status(200).json({ message: 'Upload do PDF realizado com sucesso.' });
+      });
     } catch (error) {
-      console.error("Erro ao fazer upload do PDF:", error);
-      return res.status(500).json({ error: "Erro ao fazer upload do PDF." });
+      console.error('Erro ao fazer upload do PDF:', error);
+      return res.status(500).json({ error: 'Erro ao fazer upload do PDF.' });
     }
   }
 };

@@ -13,7 +13,7 @@ const query = 'SELECT pdf FROM diagnostico WHERE id = ?';
 (async () => {
   try {
     const connection = await db.getConnection();
-    const [rows] = await connection.execute(query, [8]); 
+    const [rows] = await connection.execute(query, [12]); 
 
     if (rows.length > 0) {
       const pdfBuffer = rows[0].pdf;

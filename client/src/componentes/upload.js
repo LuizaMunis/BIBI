@@ -6,7 +6,6 @@ function Upload({ agendamento_id }) {
   const sendFile = async () => {
     const dataForm = new FormData();
     for (const file of filesElement.current.files) {
-      // Atribua um nome específico para cada arquivo, por exemplo, 'pdf'
       dataForm.append('file', file);
     }
     const res = await fetch(`http://localhost:3001/uploads/${agendamento_id}`, {
