@@ -17,6 +17,8 @@ app.use(cors());
 app.post("/login", admController.login);
 app.get("/calendario", calendarioController.exibir);
 app.get("/diagnosticos", clienteController.getAll2 );
+app.get('/diagnosticos/filtrar', clienteController.filter);
+
 
 
 app.post('/uploads/:agendamento_id', upload.array('file'), diagnosticosController.setUpload);

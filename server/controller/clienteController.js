@@ -30,6 +30,16 @@ getAll2: (req, res) => {
         }
       }
     });
+  },
+
+  filter :(req, res) => {
+    const { status } = req.query; // Acessando o parâmetro "status" da consulta
+    admModel.filterByStatus(status, (err, result) => {
+      if (err) {
+        console.error("Erro ao buscar dados por status:", err);
+        return res.status(500).json({ error: "Erro ao buscar dados do banco de dados" });
+      }
+      res.json(result);
+    });
   }
-      
 };

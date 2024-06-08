@@ -71,6 +71,24 @@ const upload = (agendamento_id, pdf, callback) => {
   });
 };
 
+//////////////////status/////////////////////////////
+
+const filterByStatus = (status, callback) => {
+  let sql = `SELECT agendamento.*, veiculo.*, cliente.*, agendamento.data
+             FROM agendamento 
+             JOIN veiculo ON agendamento.id_veiculo = veiculo.placa
+             JOIN cliente ON veiculo.id_cliente = cliente.cpf
+             LEFT JOIN diagnostico ON agendamento.id = diagnostico.agendamento_id
+             WHERE agendamento.data <= CURDATE()`;
+  
+  if (status) {
+    sql += ` AND diagnostico.resposta = ?`;
+  }
+
+  db.query(sql, [status], callback);
+};
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
 module.exports = {
   comparePassword,
   getByEmail,
@@ -78,4 +96,5 @@ module.exports = {
   getByDateAndPeriod,
   getByAgendamento,
   upload,
+  filterByStatus,
 };

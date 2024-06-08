@@ -1,41 +1,51 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
-import Upload from "../componentes/upload"
+import Upload from "../componentes/upload";
 
 function Diagnosticos() {
   const [agendamentos, setAgendamentos] = useState([]);
   const [erro, setErro] = useState(null);
   const [detalhesVisiveis, setDetalhesVisiveis] = useState({});
+  const [filtro, setFiltro] = useState('');
 
   useEffect(() => {
-    const fetchAgendamentos = async () => {
+    const fetchData = async () => {
       try {
-        const response = await Axios.get('http://localhost:3001/diagnosticos');
-        console.log('Dados recebidos do backend:', response.data);
-        
-        const filteredAgendamentos = response.data.filter(agendamento => {
-          console.log('Data do agendamento:', agendamento.data); // Verifica a data do agendamento
-          return new Date(agendamento.data) <= new Date(); // Filtra os agendamentos para datas passadas ou iguais à data atual
-        });
-        console.log('Agendamentos filtrados:', filteredAgendamentos); // Verifica os agendamentos filtrados
-        
-        setAgendamentos(filteredAgendamentos);
+        let url = 'http://localhost:3001/diagnosticos';
+        if (filtro) {
+          url += `/filtrar?status=${filtro}`;
+        }
+
+        const response = await Axios.get(url);
+        setAgendamentos(response.data);
       } catch (error) {
-        console.error('Erro ao buscar agendamentos:', error);
-        setErro(error.message);
+        console.error(error);
+        setErro("Erro ao buscar agendamentos");
       }
     };
-    
-    fetchAgendamentos();
-  }, []);
+
+    fetchData();
+  }, [filtro]);
 
   const toggleDetalhes = (id) => {
     setDetalhesVisiveis({ ...detalhesVisiveis, [id]: !detalhesVisiveis[id] });
   };
 
+  const handleFilterChange = (event) => {
+    setFiltro(event.target.value);
+  };
+
   return (
     <div>
       <h1>Diagnósticos</h1>
+      <div>
+        <label htmlFor="filtro">Filtrar por status:</label>
+        <select id="filtro" value={filtro} onChange={handleFilterChange}>
+          <option value="">Todos</option>
+          <option value="aguardando">Aguardando</option>
+          <option value="aprovado">Aprovado</option>
+        </select>
+      </div>
       {erro ? (
         <p>Erro: {erro}</p>
       ) : (
