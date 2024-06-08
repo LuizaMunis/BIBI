@@ -41,5 +41,16 @@ getAll2: (req, res) => {
       }
       res.json(result);
     });
+  },
+
+  finalizar: (req, res) => {
+    const { id } = req.params;
+    admModel.finalizarServico(id, (err, result) => {
+      if (err) {
+        console.error('Erro ao finalizar serviço:', err);
+        return res.status(500).json({ error: "Erro ao finalizar serviço" });
+      }
+      res.status(200).json({ message: "Serviço finalizado com sucesso" });
+    });
   }
 };

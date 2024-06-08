@@ -88,6 +88,13 @@ const filterByStatus = (status, callback) => {
   db.query(sql, [status], callback);
 };
 
+//////////////////////////////////////////////////////////////////////
+
+const finalizarServico = (id, callback) => {
+  const sql = `UPDATE diagnostico SET resposta = 'finalizado' WHERE agendamento_id = ?`;
+  db.query(sql, [id], callback);
+};
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 module.exports = {
   comparePassword,
@@ -97,4 +104,5 @@ module.exports = {
   getByAgendamento,
   upload,
   filterByStatus,
+  finalizarServico,
 };

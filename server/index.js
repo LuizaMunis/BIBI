@@ -18,6 +18,8 @@ app.post("/login", admController.login);
 app.get("/calendario", calendarioController.exibir);
 app.get("/diagnosticos", clienteController.getAll2 );
 app.get('/diagnosticos/filtrar', clienteController.filter);
+app.put('/diagnosticos/finalizar/:id', clienteController.finalizar);
+
 
 
 

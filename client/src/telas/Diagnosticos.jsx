@@ -35,6 +35,20 @@ function Diagnosticos() {
     setFiltro(event.target.value);
   };
 
+  const finalizarServico = async (id) => {
+    try {
+      await Axios.put(`http://localhost:3001/diagnosticos/finalizar/${id}`);
+      setAgendamentos(prevAgendamentos => 
+        prevAgendamentos.map(agendamento => 
+          agendamento.id === id ? { ...agendamento, resposta: 'finalizado' } : agendamento
+        )
+      );
+    } catch (error) {
+      console.error('Erro ao finalizar serviço:', error);
+      setErro("Erro ao finalizar serviço");
+    }
+  };
+
   return (
     <div>
       <h1>Diagnósticos</h1>
@@ -60,6 +74,7 @@ function Diagnosticos() {
                   <p>Nome: {agendamento.nome}</p>
                   <p>Email: {agendamento.email}</p>
                   <Upload agendamento_id={agendamento.id}/>
+                  <button onClick={() => finalizarServico(agendamento.id)}>Finalizar Serviço</button>
                 </div>
               )}
             </div>
