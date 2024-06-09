@@ -20,12 +20,7 @@ app.get("/diagnosticos", clienteController.getAll2 );
 app.get('/diagnosticos/filtrar', clienteController.filter);
 app.put('/diagnosticos/finalizar/:id', clienteController.finalizar);
 
-
-
-
 app.post('/uploads/:agendamento_id', upload.array('file'), diagnosticosController.setUpload);
-
-
 
 app.listen(3001, () => {
   console.log("Rodando na porta 3001");
