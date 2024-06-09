@@ -1,0 +1,61 @@
+.calendario{
+  padding: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th {
+  border: 1px solid #851409;
+  background-color: #851309;
+  color: #f2f2f2;
+  padding: 8px;
+  text-align: left;
+}
+
+td{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  border: 1px solid #851409;
+}
+
+.button-expandir{
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 2px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.button-expandir:hover {
+  background-color: #45a049;
+}
+
+
+tr.detalhes {
+  background-color: #f2f2f2;
+  border: none;
+}
+
+tr.detalhes p {
+  margin: 5px;
+}
+
+h1 {
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  color: #333;
+  font-size: 24px;
+  margin-top: 20px;
+}
+
+.expandir{
+  border: none;
+}

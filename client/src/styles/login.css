@@ -1,0 +1,70 @@
+.login-body{
+    height: 100vh;
+    width: 100vw;
+    background: url(img/fundo.png);
+    background-size: cover;
+    position: absolute;
+    margin: 0%;
+}
+.container-login {
+    width: 100%;
+    max-width: 400px;
+    margin: 150px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+  }
+  
+  .container-login h1 {
+    margin-bottom: 24px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .login-form-group {
+    margin-bottom: 16px;
+  }
+  
+  .form-field {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .form-field:focus {
+    border-color:#851409;
+    outline: none;
+    box-shadow: 0 0 4px rgba(255, 0, 0, 0.5);
+  }
+  
+  .form-error {
+    color: #fa0202;
+    font-size: 11px;
+    margin-top: 8px;
+    text-align: left;
+  }
+  
+  .button {
+    width: 100%;
+    padding: 10px;
+    background-color: #851409;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #db4848;
+  }

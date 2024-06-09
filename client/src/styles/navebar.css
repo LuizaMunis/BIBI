@@ -1,0 +1,41 @@
+.navbar-container{
+  background-color: #851409; 
+  padding: 10px 0; 
+  display: flex; 
+  padding-top: 25px;
+  justify-content: space-around; 
+}
+  
+.button-navebar{
+  background-color: transparent;
+  border: none; 
+  color: white; 
+  font-size: 20px; 
+  cursor: pointer; 
+  transition: color 0.3s; 
+  padding: 10px;
+}
+.button-navebar:hover {
+  background-color: #991e1285;
+}
+
+.sair{
+  background-color: transparent;
+  border: none; 
+  color: white; 
+  font-size: 16px; 
+  cursor: pointer; 
+  transition: color 0.3s; 
+  position: absolute;
+  top: 10px;
+  right:10px;
+}
+
+
+.logo2 {
+  width: 50px;
+  height: auto;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}

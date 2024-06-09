@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import Upload from "../componentes/upload";
+import Navebar from '../componentes/navebar';
 
 function Diagnosticos() {
   const [agendamentos, setAgendamentos] = useState([]);

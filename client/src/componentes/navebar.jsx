@@ -1,32 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Logout from './logout';
-import Calendario from '../telas/Calendario';
+import '../styles/navebar.css';
+import logo from "../styles/img/logo2.png"
 
 
 function Navebar() { 
-  const navigate = useNavigate();
-   //Navega para as paginas indicadas.
-  const handleCalendarioClick = () => {
-    navigate('/Calendario'); 
-  };
 
-  const handleDiagnosticosClick = () => {
-    navigate('/Diagnosticos'); 
-  };
+    const navigate = useNavigate();
 
-  const handlePerfilClick = () => {
-    navigate('/Perfil'); 
-  };
+    // Funções de navegação para cada botão
+    const handleCalendarioClick = () => {
+        navigate('/Calendario'); 
+    };
 
-  return ( //Botoes na barra de navegação que redireciona para as paginas.
-    <div>  
-      <button onClick={handleCalendarioClick} className='button_calendario'>Calendario</button>
-      <button onClick={handleDiagnosticosClick} className='button_Diagnosticos'>Diagnosticos</button>
-      <button onClick={handlePerfilClick} className='button_perfil'>Perfil</button>
-      <Logout/>
-    </div>
-  );
+    const handleDiagnosticosClick = () => {
+        navigate('/Diagnosticos'); 
+    };
+
+    const handlePerfilClick = () => {
+        navigate('/Perfil'); 
+    };
+
+    return (
+        <div className="navbar-container"> 
+          <img className="logo2" src={logo} alt="logo bibi digital"/>
+          <button onClick={handleCalendarioClick} className='button-navebar'>Calendario</button>
+          <button onClick={handleDiagnosticosClick} className='button-navebar'>Diagnosticos</button>
+          <button onClick={handlePerfilClick} className='button-navebar'>Perfil</button>
+          <Logout/>
+        </div>
+    );
 }
 
 export default Navebar;
