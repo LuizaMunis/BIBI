@@ -5,16 +5,12 @@ import '../styles/calendario.css'
 
 function Calendario() {
   const [agendamentos, setAgendamentos] = useState([]);
-  // const [semana, setSemana] = useState(true); // Removido para evitar aviso do ESLint
   const [expandedagendamento, setExpandedagendamento] = useState(null); // Estado para controlar o agendamento expandido
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         let url = 'http://localhost:3001/calendario';
-        // if (semana) {
-        //   url += '?semana=true';
-        // }
         const response = await Axios.get(url);
         if (response.data) {
           const agendamentosFormatados = response.data.map((agendamento) => ({
@@ -46,6 +42,7 @@ function Calendario() {
       <div className='container'>
         <div className='calendario'>
           <h1>Agendados</h1>
+          <p className='textoAviso'>*próximos 7 dias</p>
           <table>
             <thead>
               <tr>

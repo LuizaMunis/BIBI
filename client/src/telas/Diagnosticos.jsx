@@ -70,11 +70,11 @@ function Diagnosticos() {
         <h1>Diagnósticos</h1>
         <div>
           <label htmlFor="filtro">Filtrar por status:</label>
-          <select id="filtro" value={filtro} onChange={handleFilterChange}>
-            <option value="">Todos</option>
-            <option value="aguardando">Aguardando</option>
-            <option value="aprovado">Aprovado</option>
-          </select>
+          <div className="filtro-buttons">
+            <button className={filtro === "" ? "active" : ""} onClick={() => setFiltro("")}>Todos</button>
+            <button className={filtro === "aguardando" ? "active" : ""} onClick={() => setFiltro("aguardando")}>Aguardando</button>
+            <button className={filtro === "aprovado" ? "active" : ""} onClick={() => setFiltro("aprovado")}>Aprovado</button>
+          </div>
         </div>
         {erro ? (
           <p>Erro: {erro}</p>
