@@ -43,55 +43,57 @@ function Calendario() {
   return (
     <div>
       <Navebar />
-      <div className='calendario'>
-        <h1>Agendados</h1>
-        <table>
-          <thead>
-            <tr>
-              <th>NOME</th>
-              <th>CPF</th>
-              <th>VEÍCULO</th>
-              <th>PLACA</th>
-              <th>DATA</th>
-              <th>PERÍODO</th>
-            </tr>
-          </thead>
-          <tbody>
-            <React.Fragment key="agendamentos">
-              {agendamentos.map((agendamento) => (
-                <React.Fragment key={agendamento.id}>
-                  <tr>
-                    <td>{agendamento.nome}</td>
-                    <td>{agendamento.cpf}</td>
-                    <td>{agendamento.modelo}</td>
-                    <td>{agendamento.placa}</td>
-                    <td>{agendamento.data}</td>
-                    <td>{agendamento.periodo}</td>
-                    <td className='expandir'>
-                      <button onClick={() => handleClick(agendamento)} className='button-expandir' > {expandedagendamento === agendamento.id ? '-' : '+'}</button>
-                    </td>
-                  </tr>
-                  {expandedagendamento === agendamento.id && (
-                    <tr key={`${agendamento.id}-detalhes`}className="detalhes">
-                      <td colSpan="5">
-                        <div>
-                          <p>Nome: {agendamento.nome} {agendamento.sobrenome}</p>
-                          <p>Email: {agendamento.email}</p>
-                          <p>Celular: {agendamento.celular}</p>
-                        </div>
-                        <div>
-                          <p>Motor: {agendamento.motor}</p>
-                          <p>Cor: {agendamento.cor}</p>
-                          <p>Ano: {agendamento.ano}</p>
-                        </div>
+      <div className='container'>
+        <div className='calendario'>
+          <h1>Agendados</h1>
+          <table>
+            <thead>
+              <tr>
+                <th>NOME</th>
+                <th>CPF</th>
+                <th>VEÍCULO</th>
+                <th>PLACA</th>
+                <th>DATA</th>
+                <th>PERÍODO</th>
+              </tr>
+            </thead>
+            <tbody>
+              <React.Fragment key="agendamentos">
+                {agendamentos.map((agendamento) => (
+                  <React.Fragment key={agendamento.id}>
+                    <tr>
+                      <td>{agendamento.nome}</td>
+                      <td>{agendamento.cpf}</td>
+                      <td>{agendamento.modelo}</td>
+                      <td>{agendamento.placa}</td>
+                      <td>{agendamento.data}</td>
+                      <td>{agendamento.periodo}</td>
+                      <td className='expandir'>
+                        <button onClick={() => handleClick(agendamento)} className='button-expandir' > {expandedagendamento === agendamento.id ? '-' : '+'}</button>
                       </td>
                     </tr>
-                  )}
-                </React.Fragment>
-              ))}
-            </React.Fragment>
-          </tbody>
-        </table>
+                    {expandedagendamento === agendamento.id && (
+                      <tr key={`${agendamento.id}-detalhes`}className="detalhes">
+                        <td colSpan="6">
+                          <div>
+                            <p>Nome: {agendamento.nome} {agendamento.sobrenome}</p>
+                            <p>Email: {agendamento.email}</p>
+                            <p>Celular: {agendamento.celular}</p>
+                          </div>
+                          <div>
+                            <p>Motor: {agendamento.motor}</p>
+                            <p>Cor: {agendamento.cor}</p>
+                            <p>Ano: {agendamento.ano}</p>
+                          </div>
+                        </td>
+                      </tr>
+                    )}
+                  </React.Fragment>
+                ))}
+              </React.Fragment>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

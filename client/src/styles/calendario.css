@@ -1,5 +1,17 @@
-.calendario{
-  padding: 20px;
+.container {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+}
+
+.calendario {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 1%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  width: 100%; 
+  margin: 60px; 
+  border-radius: 5px;
+  
 }
 
 table {
@@ -16,12 +28,11 @@ th {
   text-align: left;
 }
 
-td{
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+td {
   border: 1px solid #851409;
 }
 
-.button-expandir{
+.button-expandir {
   background-color: #4CAF50;
   color: white;
   border: none;
@@ -39,7 +50,6 @@ td{
   background-color: #45a049;
 }
 
-
 tr.detalhes {
   background-color: #f2f2f2;
   border: none;
@@ -50,12 +60,11 @@ tr.detalhes p {
 }
 
 h1 {
-  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   color: #333;
   font-size: 24px;
   margin-top: 20px;
 }
 
-.expandir{
+.expandir {
   border: none;
 }
