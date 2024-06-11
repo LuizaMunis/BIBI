@@ -20,7 +20,7 @@ module.exports = {
             return res.status(500).json({ error: "Erro na comparação de senhas." });
           }
           if (response) {
-            //autenticação
+            //cria tokem com basse na palavra secreta e com a dureção fornecida
             const token = jwt.sign({ userEmail: email }, SECRET, { expiresIn: '60min' });
             return res.json({ auth: true, token });
           } else {
