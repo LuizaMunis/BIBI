@@ -1,9 +1,22 @@
+.container-diag {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+}
+
 .diagnosticos {
-    padding: 20px;
-  }
+  background-color:rgba(255, 255, 255, 0.8);
+  padding: 1%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  width: 100%; 
+  margin-top: 5%; 
+  margin-left: 5%;
+  margin-right: 5%;
+  border-radius: 5px;
   
+}
   
-  .button-expandir {
+.button-expandir {
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -15,7 +28,7 @@
     margin: 2px 2px;
     cursor: pointer;
     border-radius: 5px;
-  }
+ }
   
   .button-expandir:hover {
     background-color: #45a049;
@@ -30,13 +43,140 @@
     margin: 5px;
   }
   
-  h1 {
+  .diag-h1{
+    position: absolute;
     color: #333;
     font-size: 24px;
-    margin-top: 20px;
   }
   
   .expandir {
     border: none;
   }
+
+  .text-filtro{
+    font-size: 12px;
+  }
+
+  .div-filtro{
+    position: relative;
+    left: 45%;
+  }
+
+  .filtro-buttons{
+    display: flex;
+    gap:10px;  
+  }
   
+  .todos{
+    cursor: pointer;
+    background-color: #444444;
+    border-radius: 15px;
+    padding: 5px;
+    padding-left:30px;
+    padding-right: 30px;
+    border: none;
+    color: aliceblue;
+
+  }
+
+  .aguardando{
+    background-color: #c98a03;
+    border-radius: 15px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: none;
+    cursor: pointer;
+    color: aliceblue;
+  }
+
+  .aprovado{
+    background-color: #378a03;
+    border-radius: 15px;
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: none;
+    cursor: pointer;
+    color: aliceblue;
+  }
+
+  .cancelado{
+    background-color: #D11E1E;
+    border-radius: 15px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: none;
+    cursor: pointer;
+    color: aliceblue;
+  }
+
+.concluido{
+  background-color: #0670EC;
+  color: aliceblue;
+  border-radius: 15px;
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border: none;
+  cursor: pointer;
+
+}
+
+.detalhes-container {
+  display: flex;
+  gap: 20px;  
+}
+
+.detalhes-container > div {
+  flex: 1; 
+  padding: 10px;
+  padding-bottom: 5%;
+}
+
+.detalhes-container h3 {
+  margin-top: 0;
+}
+
+
+button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.upload-container {
+  display: flex;
+  gap: 15%;
+  margin-left: 10px;
+  margin-bottom: 1%;
+}
+
+.upload-button {
+  position: relative;
+  cursor: pointer; 
+  background-color: #851409; 
+  color: aliceblue;
+  border: none; 
+  border-radius: 5px; 
+  margin-top: -10px;
+}
+
+.upload-button:hover {
+  background-color: #640c04; 
+}
+
+
+.finalizar{
+  position: absolute;
+  cursor: pointer; 
+  background-color: #851409; 
+  color: aliceblue;
+  border: none; 
+  border-radius: 5px; 
+  margin-left: 65%;
+  margin-top: -44px;
+  padding: 9px;
+
+}

@@ -2,7 +2,10 @@ import { useState, useRef, useEffect } from 'react';
 
 function Upload({ agendamento_id }) {
   const filesElement = useRef(null);
-  const [enviado, setEnviado] = useState(false);
+  const [enviado, setEnviado] = useState(() => {
+    const enviadoLocal = localStorage.getItem('enviado');
+    return enviadoLocal === 'true';
+  });
 
   useEffect(() => {
     // Verifica se o arquivo já foi enviado ao carregar a página
@@ -10,6 +13,11 @@ function Upload({ agendamento_id }) {
     if (enviadoLocal === 'true') {
       setEnviado(true);
     }
+
+    // Cleanup effect: remove 'enviado' from localStorage 
+    return () => {
+      localStorage.removeItem('enviado');
+    };
   }, []);
 
   const sendFile = async () => {
@@ -23,16 +31,16 @@ function Upload({ agendamento_id }) {
     });
     const data = await res.json();
     console.log(data);
-    setEnviado(true); // Define o estado como "enviado" após o envio do arquivo
-    localStorage.setItem('enviado', 'true'); // Salva o estado "enviado" no armazenamento local
+    setEnviado(true); // Define como "enviado" após o envio do arquivo
+    localStorage.setItem('enviado', 'true'); // Salva  "enviado" no armazenamento local
   };
 
   return (
-    <div>
+    <div className="upload-container">
       {!enviado ? ( // Aparece o input e o botão apenas se não tiver sido enviado
         <>
-          <input type="file" multiple ref={filesElement} />
-          <button onClick={sendFile}>Enviar arquivo</button>
+          <input type="file" multiple ref={filesElement} className="file-input" />
+          <button onClick={sendFile} className="upload-button">Enviar arquivo</button>
         </>
       ) : (
         <p>Enviado</p> // Renderiza a mensagem "Enviado" se o arquivo já tiver sido enviado

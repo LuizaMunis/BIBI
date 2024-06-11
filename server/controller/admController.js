@@ -21,7 +21,7 @@ module.exports = {
           }
           if (response) {
             //autenticação
-            const token = jwt.sign({ userEmail: email }, SECRET, { expiresIn: '60s' });
+            const token = jwt.sign({ userEmail: email }, SECRET, { expiresIn: '60min' });
             return res.json({ auth: true, token });
           } else {
             return res.status(401).json({ msg: "Senha incorreta." });
@@ -33,15 +33,5 @@ module.exports = {
     });
   },
 
-  //Pra ultizar  nas rotas que quero que seja protegida
-  verifyJWT:(req, res,next)=>{
-    const token= req.headers['x-access-token'];
-    jwt.verify(token,SECRET,(err,decoded)=>{
-      if(err) return res.status(401).end();
-
-      req.userEmail=decoded.userEmail;
-      next();
-    });
-  }
 
 };

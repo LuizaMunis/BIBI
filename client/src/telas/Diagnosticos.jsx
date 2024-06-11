@@ -7,7 +7,7 @@ import '../styles/diagnosticos.css';
 function Diagnosticos() {
   const [agendamentos, setAgendamentos] = useState([]);
   const [erro, setErro] = useState(null);
-  const [detalhesVisiveis, setDetalhesVisiveis] = useState({});
+  const [expandedAgendamentos, setExpandedAgendamentos] = useState({});
   const [filtro, setFiltro] = useState('');
   const [servicosFinalizados, setServicosFinalizados] = useState({});
 
@@ -30,18 +30,11 @@ function Diagnosticos() {
     fetchData();
   }, [filtro]);
 
-  const handleClick = (agendamento) => {
-    // Se o agendamento clicado já estiver expandido, fecha ele
-    if (detalhesVisiveis[agendamento.id]) {
-      setDetalhesVisiveis({ ...detalhesVisiveis, [agendamento.id]: false });
-    } else {
-      // Se não, expande o agendamento clicado
-      setDetalhesVisiveis({ ...detalhesVisiveis, [agendamento.id]: true });
-    }
-  };
-
-  const handleFilterChange = (event) => {
-    setFiltro(event.target.value);
+  const handleClick = (id) => {
+    setExpandedAgendamentos(prevExpandedAgendamentos => ({
+      ...prevExpandedAgendamentos,
+      [id]: !prevExpandedAgendamentos[id]
+    }));
   };
 
   const finalizarServico = async (id) => {
@@ -59,75 +52,93 @@ function Diagnosticos() {
     }
   };
 
-  const isServicoFinalizado = (id) => {
-    return servicosFinalizados[id];
-  };
+  const isServicoFinalizado = id => servicosFinalizados[id];
 
   return (
     <div>
       <Navebar />
-      <div className='diagnosticos'>
-        <h1>Diagnósticos</h1>
-        <div>
-          <label htmlFor="filtro">Filtrar por status:</label>
-          <div className="filtro-buttons">
-            <button className={filtro === "" ? "active" : ""} onClick={() => setFiltro("")}>Todos</button>
-            <button className={filtro === "aguardando" ? "active" : ""} onClick={() => setFiltro("aguardando")}>Aguardando</button>
-            <button className={filtro === "aprovado" ? "active" : ""} onClick={() => setFiltro("aprovado")}>Aprovado</button>
+      <div className='container-diag'>
+        <div className='diagnosticos'>
+          <h1 className='diag-h1'>Diagnósticos</h1>
+          <div className='div-filtro'>
+            <label htmlFor="filtro" className='text-filtro'>Filtrar por status:</label>
+            <div className="filtro-buttons">
+              <button className={`aguardando ${filtro === "aguardando" ? "active" : ""}`} onClick={() => setFiltro("aguardando")}>Aguardando</button>
+              <button className={`aprovado ${filtro === "aprovado" ? "active" : ""}`} onClick={() => setFiltro("aprovado")}>Aprovado</button>
+              <button className={`cancelado ${filtro === "cancelado" ? "active" : ""}`} onClick={() => setFiltro("cancelado")}>Cancelado</button>
+              <button className={`concluido ${filtro === "finalizado" ? "active" : ""}`} onClick={() => setFiltro("finalizado")}>Concluído</button>
+              <button className={`todos ${filtro === "aguardando Orçamento" ? "active" : ""}`} onClick={() => setFiltro("aguardando Orçamento")}>Enviar Orçamento</button>
+            </div>
           </div>
-        </div>
-        {erro ? (
-          <p>Erro: {erro}</p>
-        ) : (
-          <div>
-            <table>
-              <thead>
-                <tr>
-                  <th>NOME</th>
-                  <th>CPF</th>
-                  <th>VEÍCULO</th>
-                  <th>PLACA</th>
-
-                </tr>
-              </thead>
-              <tbody>
-                {agendamentos.map((agendamento) => (
-                  <React.Fragment key={agendamento.id}>
-                    <tr>
-                      <td>{agendamento.nome}</td>
-                      <td>{agendamento.cpf}</td>
-                      <td>{agendamento.modelo}</td>
-                      <td>{agendamento.placa}</td>
-                      <td className='expandir'>
-                        <button onClick={() => handleClick(agendamento)} className='button-expandir'>{detalhesVisiveis[agendamento.id] ? '-' : '+'}</button>
-                      </td>
-                    </tr>
-                    {detalhesVisiveis[agendamento.id] && (
-                      <tr key={`${agendamento.id}-detalhes`} className="detalhes">
-                        <td colSpan="5">
-                          <div>
-                            <p>Nome: {agendamento.nome} {agendamento.sobrenome}</p>
-                            <p>Email: {agendamento.email}</p>
-                            <p>Celular: {agendamento.celular}</p>
-                          </div>
-                          <div>
-                            <p>Motor: {agendamento.motor}</p>
-                            <p>Cor: {agendamento.cor}</p>
-                            <p>Ano: {agendamento.ano}</p>
-                          </div>
-                          <Upload/>
-                          {!isServicoFinalizado(agendamento.id) && (
-                            <button onClick={() => finalizarServico(agendamento.id)}>Finalizar Serviço</button>
-                          )}
+          {erro ? (
+            <p>Erro: {erro}</p>
+          ) : (
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>NOME</th>
+                    <th>CPF</th>
+                    <th>VEÍCULO</th>
+                    <th>PLACA</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {agendamentos.map(agendamento => (
+                    <React.Fragment key={agendamento.id}>
+                      <tr>
+                        <td>{agendamento.nome}</td>
+                        <td>{agendamento.cpf}</td>
+                        <td>{agendamento.modelo}</td>
+                        <td>{agendamento.placa}</td>
+                        <td className='expandir'>
+                          <button onClick={() => handleClick(agendamento.id)} className='button-expandir'>
+                            {expandedAgendamentos[agendamento.id] ? '-' : '+'}
+                          </button>
                         </td>
                       </tr>
-                    )}
-                  </React.Fragment>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+                      {expandedAgendamentos[agendamento.id] && (
+                        <tr key={`${agendamento.id}-detalhes`} className="detalhes">
+                          <td colSpan="4">
+                            <div className="detalhes-container">
+                              <div className="dados-pessoais">
+                                <h3>Dados Pessoais</h3>
+                                <p>Nome: {agendamento.nome} {agendamento.sobrenome}</p>
+                                <p>CPF: {agendamento.cpf}</p>
+                                <p>Email: {agendamento.email}</p>
+                                <p>Celular: {agendamento.celular}</p>
+                              </div>
+                              <div className="endereco">
+                                <h3>Endereço</h3>
+                                <p>CEP: {agendamento.cep}</p>
+                                <p>Cidade: {agendamento.cidade}</p>
+                                <p>Endereço: {agendamento.endereco}</p>
+                              </div>
+                              <div className="dados-carro">
+                                <h3>Dados do Carro</h3>
+                                <p>Placa: {agendamento.placa}</p>
+                                <p>Modelo: {agendamento.modelo}</p>
+                                <p>Motor: {agendamento.motor}</p>
+                                <p>Cor: {agendamento.cor}</p>
+                                <p>Ano: {agendamento.ano}</p>
+                              </div>
+                            </div>
+                            <Upload agendamento_id={agendamento.id} />
+                            {!isServicoFinalizado(agendamento.id) && (
+                              <button onClick={() => finalizarServico(agendamento.id)} className='finalizar'>
+                                Finalizar Serviço
+                              </button>
+                            )}
+                          </td>
+                        </tr>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
