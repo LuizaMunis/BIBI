@@ -14,17 +14,4 @@ module.exports = {
         res.json(results);
     });
 },
-
-  getCompleteDataById: (req, res) => {
-      const { id } = req.params;
-
-      admModel.getCompleteDataById(id, (err, result) => {
-          if (err) {
-              console.error("Erro ao obter dados completos:", err);
-              res.status(500).send("Erro ao obter dados completos");
-          } else {
-              res.status(200).json(result);
-          }
-      });
-  },
 };

@@ -3,22 +3,18 @@ import { useState, useRef, useEffect } from 'react';
 function Upload({ agendamento_id }) {
   const filesElement = useRef(null);
   const [enviado, setEnviado] = useState(() => {
-    const enviadoLocal = localStorage.getItem('enviado');
+    // Verifica se o arquivo já foi enviado ao carregar a página
+    const enviadoLocal = localStorage.getItem(`enviado_${agendamento_id}`);
     return enviadoLocal === 'true';
   });
 
   useEffect(() => {
     // Verifica se o arquivo já foi enviado ao carregar a página
-    const enviadoLocal = localStorage.getItem('enviado');
+    const enviadoLocal = localStorage.getItem(`enviado_${agendamento_id}`);
     if (enviadoLocal === 'true') {
       setEnviado(true);
     }
-
-    // Cleanup effect: remove 'enviado' from localStorage 
-    return () => {
-      localStorage.removeItem('enviado');
-    };
-  }, []);
+  }, [agendamento_id]); // Executa apenas quando o agendamento_id mudar
 
   const sendFile = async () => {
     const dataForm = new FormData();
@@ -29,10 +25,8 @@ function Upload({ agendamento_id }) {
       method: 'POST',
       body: dataForm,
     });
-    const data = await res.json();
-    console.log(data);
     setEnviado(true); // Define como "enviado" após o envio do arquivo
-    localStorage.setItem('enviado', 'true'); // Salva  "enviado" no armazenamento local
+    localStorage.setItem(`enviado_${agendamento_id}`, 'true'); // Salva "enviado" no armazenamento local para este agendamento específico
   };
 
   return (
@@ -43,7 +37,7 @@ function Upload({ agendamento_id }) {
           <button onClick={sendFile} className="upload-button">Enviar arquivo</button>
         </>
       ) : (
-        <p>Enviado</p> // Renderiza a mensagem "Enviado" se o arquivo já tiver sido enviado
+        <p className='enviado'>Orçamento Enviado</p> // Renderiza a mensagem "Enviado" se o arquivo já tiver sido enviado
       )}
     </div>
   );

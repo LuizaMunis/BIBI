@@ -5,14 +5,14 @@ import Navebar from '../componentes/navebar';
 import '../styles/diagnosticos.css';
 
 function Diagnosticos() {
-  const [agendamentos, setAgendamentos] = useState([]); //armazenar lista de agendamentos
+  const [agendamentos, setAgendamentos] = useState([]);
   const [erro, setErro] = useState(null);
-  const [expandedAgendamentos, setExpandedAgendamentos] = useState({}) //ver quais agendamento tão expandido;
-  const [filtro, setFiltro] = useState('');
-  const [servicosFinalizados, setServicosFinalizados] = useState({}); //rastrear quais serviços foram finalizados.
+  const [expandedAgendamentos, setExpandedAgendamentos] = useState({});
+  const [filtro, setFiltro] = useState('aguardando Orçamento');
+  const [servicosFinalizados, setServicosFinalizados] = useState({});
 
   useEffect(() => {
-    const fetchData = async () => { //sempre que o efeito mudar sera reexecutado
+    const fetchData = async () => {
       try {
         let url = 'http://localhost:3001/diagnosticos';
         if (filtro) {
@@ -20,24 +20,22 @@ function Diagnosticos() {
         }
 
         const response = await Axios.get(url);
-        setAgendamentos(response.data); //.data usada para acessar a resposta da API. Atualiza o estado de agendamento
+        setAgendamentos(response.data);
       } catch (error) {
         console.error(error);
         setErro("Erro ao buscar agendamentos");
       }
     };
-    fetchData(); //Chama a função para buscar dados ao carregar o componente ou quando 'filtro' mudar
+
+    fetchData();
   }, [filtro]);
 
   const handleClick = (id) => {
-    setExpandedAgendamentos(prevExpandedAgendamentos => ({ 
+    setExpandedAgendamentos(prevExpandedAgendamentos => ({
       ...prevExpandedAgendamentos,
       [id]: !prevExpandedAgendamentos[id]
     }));
-  }; 
-  
-  /*spread (...) para criar um novo objeto que mantém todos os valores existentes em prevExpandedAgendamentos,
-   mas atualiza o valor correspondente ao id do agendamento clicado.*/
+  };
 
   const finalizarServico = async (id) => {
     try {
@@ -87,7 +85,7 @@ function Diagnosticos() {
                 </thead>
                 <tbody>
                   {agendamentos.map(agendamento => (
-                    <React.Fragment key={agendamento.id}> {/*agrupa lista de elementos e define uma chave*/}
+                    <React.Fragment key={agendamento.id}>
                       <tr>
                         <td>{agendamento.nome}</td>
                         <td>{agendamento.cpf}</td>

@@ -2,7 +2,6 @@ const admModel = require('../model/admModel');
 
 module.exports = {
   setUpload: async (req, res) => {
-    try {
       const agendamento_id = req.params.agendamento_id;
       const files = req.files;
 
@@ -30,9 +29,5 @@ module.exports = {
         }
         return res.status(200).json({ message: 'Upload do PDF realizado com sucesso.' });
       });
-    } catch (error) {
-      console.error('Erro ao fazer upload do PDF:', error);
-      return res.status(500).json({ error: 'Erro ao fazer upload do PDF.' });
-    }
   },
 };

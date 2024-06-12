@@ -17,7 +17,7 @@ const comparePassword = (senha, hash, callback) => { //o hash é a senha criptog
   bcrypt.compare(senha, hash, callback);
 };
 //////////////////////////////////////////Agendamentos///////////////////////////////////
-const getByDateRange = (startDate, endDate, callback) => {
+const getByDateRange = (DataInicio, Datafim, callback) => {
   const sql = `
       SELECT *
       FROM agendamento
@@ -25,7 +25,7 @@ const getByDateRange = (startDate, endDate, callback) => {
       JOIN cliente ON veiculo.id_cliente = cliente.cpf
       WHERE DATE(agendamento.data) BETWEEN DATE(?) AND DATE(?)`;
 
-  db.query(sql, [startDate, endDate], callback);
+  db.query(sql, [DataInicio, Datafim], callback);
 };
 
 ////////////////////////////////////////Diagnosticos/////////////////////////////////////////////////
@@ -38,14 +38,7 @@ const getByAgendamento = (callback) => {
     JOIN endereco ON cliente.id_endereco=endereco.id_end
     WHERE agendamento.data <= CURDATE()
   `;
-  db.query(sql, (error, results) => {
-    if (error) {
-      console.error('Erro ao executar a consulta SQL:', error);
-    } else {
-      console.log('Resultados da consulta SQL:', results);
-    }
-    callback(error, results);
-  });
+  db.query(sql, callback);
 };
 
 //////////////////upload////////////////////////
@@ -62,7 +55,7 @@ const upload = (agendamento_id, pdf, callback) => {
 //////////////////status/////////////////////////////
 
 const filterByStatus = (status, callback) => {
-  let sql = `SELECT agendamento.*, veiculo.*, cliente.*,endereco.* 
+  let sql = `SELECT agendamento.*, veiculo.*, cliente.*,endereco.* ,
              COALESCE(diagnostico.resposta, agendamento.status) as status
              FROM agendamento 
              JOIN veiculo ON agendamento.id_veiculo = veiculo.placa
